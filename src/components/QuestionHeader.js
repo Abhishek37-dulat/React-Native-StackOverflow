@@ -2,19 +2,22 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 import { decode } from "html-entities";
+import Markdown from "react-native-markdown-display";
 
-const QuestionListItem = ({ question }) => {
+const QuestionHeader = ({ question }) => {
   return (
     <Link href={`/${question.question_id}`} asChild>
       <Pressable style={Styles.container}>
+        <Text style={Styles.title}>{decode(question.title)}</Text>
         <Text style={Styles.stats}>
           {question.score} votes · {question.answer_count} answers ·{" "}
           {question.view_count} views
         </Text>
-        <Text style={Styles.title}>{decode(question.title)}</Text>
-        <Text style={Styles.body} numberOfLines={2}>
+        <View style={Styles.separator} />
+
+        <Markdown style={Styles.body}>
           {decode(question.body_markdown)}
-        </Text>
+        </Markdown>
         <View style={Styles.tags}>
           {question.tags.map((tag) => (
             <Text style={Styles.tag} key={tag}>
@@ -40,12 +43,14 @@ const Styles = StyleSheet.create({
     fontSize: 12,
   },
   title: {
-    color: "#0063bf",
+    color: "#3b4045",
     marginVertical: 5,
+    fontSize: 20,
+    fontWeight: "500",
+    lineHeight: 28,
   },
   body: {
-    fontSize: 11,
-    color: "dimgray",
+    color: "#232629",
   },
   tags: {
     flexDirection: "row",
@@ -67,6 +72,11 @@ const Styles = StyleSheet.create({
     fontSize: 12,
     color: "dimgray",
   },
+  separator: {
+    borderBottomWidth: 0.5,
+    borderColor: "lightgray",
+    marginVertical: 10,
+  },
 });
 
-export default QuestionListItem;
+export default QuestionHeader;
