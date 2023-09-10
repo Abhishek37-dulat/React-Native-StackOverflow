@@ -1,9 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import questions from "../../data/questions.json";
-const question = questions.items[1];
 
-const QuestionListItem = () => {
+const QuestionListItem = ({ question }) => {
   return (
     <View style={Styles.container}>
       <Text style={Styles.stats}>
